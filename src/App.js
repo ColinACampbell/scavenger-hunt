@@ -1,5 +1,5 @@
 import './App.css';
-import { Grid, Box } from '@mui/material';
+import { Grid, Box, Button } from '@mui/material';
 import Paper from '@mui/material/Paper'
 import Kai from './images/kai.png'
 import Logo from './images/logo.png'
@@ -9,8 +9,9 @@ const darkTheme = createTheme({ palette: { mode: 'dark' } });
 
 function App(props) {
 
-  const [hint,setHint] = useState("")
-  const [word,setWord] = useState("")
+  const [hint, setHint] = useState("")
+  const [word, setWord] = useState("")
+  const [isHintShowing, setIsHintShowing] = useState(false)
 
   useEffect(() => {
     const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -53,9 +54,10 @@ function App(props) {
         <Grid item xs={12} sm={12} lg={12} md={12} className="KaisCorner">
           <img src={Kai} width={200} />
         </Grid>
-        <div style={{ textAlign: "left", textAlign: "center", color: "white" }}>
-          <small>Hint: "{hint}"</small>
-        </div>
+        {isHintShowing && <div style={{ textAlign: "left", textAlign: "center", color: "white" }}>
+          <p>Next Word Hint: <b>"{hint}"</b></p>
+        </div>}
+        {!isHintShowing && <Button variant='outlined' onClick={() => { setIsHintShowing(true) }}> Tap For Your Next Hint </Button>}
       </Box>
     </ThemeProvider>
   );
